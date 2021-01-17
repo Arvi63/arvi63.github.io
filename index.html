@@ -4,18 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Portfolio</title>
-    <style>
-        .container{
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div id="loading">
-        Loading.....
+        <h1>Loading.....</h1>
     </div>
-    <div class="container" id="mainContainer" hidden>
-        <img id="profileImage" alt="" width=100 height=100>
+
+    <div class="main" id="mainContainer" hidden>
+        <div class="navbar">
+            <ul>
+                <li><a href="#" class="select">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Education</a></li>
+                <li><a href="#">Experience</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Contact</a></li>    
+            </ul>
+        </div>
+
+        <div class="box">
+            <div class="profileImage">
+                <img id='profileImage' alt="">
+            </div>
+            <div class="profileInfo">
+                <h1 id='userName'></h1>
+                <p id="bio"></p>
+                <h5 id="followers"></h5>
+                <p>
+                    Check me on <a id='githubLink'>GitHub</a>  
+                </p>
+            </div>
+        </div>
+        <div id='projects'>
+            <h1>My Projects</h1>
+            <ul id="repo">
+
+            </ul>
+        </div>
+    </div>
+    
+
+    <!-- <div class="container" id="mainContainer" hidden>
+        <img id="profileImage" alt="" width=200 height=200>
 
         <h2 id="userName"></h2>
         <p id="bio"></p>
@@ -23,16 +54,19 @@
         <p>
           Check me on <a id='githubLink'>GitHub</a>  
         </p>
-        <div id="repo">
+        <h2>My Projects</h2>
+        <ul id="repo">
 
-        </div>
+        </ul>
 
-        <a class="twitter-timeline" data-width="400" data-height="400" href="https://twitter.com/suraz63?ref_src=twsrc%5Etfw">Tweets by suraz63</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
-    </div>
+        <!-- <a class="twitter-timeline" data-width="400" data-height="400" href="https://twitter.com/suraz63?ref_src=twsrc%5Etfw">Tweets by suraz63</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>  -->
+    <!-- </div> --> 
+
+    
 
     <script>
         fetch("https://api.github.com/users/arvi63").then(response => response.json()).then(function(data){
-            console.log(data)
+            // console.log(data)
             let followersCount = data['followers']
             let followersInfo = `I have been followed by ${followersCount} people on GitHub`
 
@@ -47,6 +81,24 @@
 
             document.getElementById('mainContainer').hidden = false
             document.getElementById('loading').hidden = true
+        });
+
+        fetch("https://api.github.com/users/Arvi63/repos").then(response => response.json()).then(function(data){
+            console.log(data);
+            // alert(data.length)
+            // let repo_name = [];
+            // var ul = document.createElement('ul');
+
+            for(let i=0; i<data.length; i++){
+                // document.getElementById('repo').textContent = data[i]['name']
+                // repo_name.push(data[i]['name'])
+                // var li = document.createElement('li');
+                // var repo_name = document.createTextNode(data[i]['name']);
+                // li.appendChild(repo_name);
+                // ul.appendChild(li);
+                document.getElementById('repo').innerHTML += '<li>' +  data[i]['name'] + '</li>' + '<br>';
+            }
+            // document.getElementById('repo').innerHTML = repo_name
         });
     </script>
 </body>
